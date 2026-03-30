@@ -4,8 +4,33 @@
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+Three core actions a user should be able to do:
+
+1. Add a pet — enter basic info like name, species, and age to create a pet profile.
+2. Schedule a walk — pick a pet, date, and time to add a walk to the calendar.
+3. See today's tasks — view a simple list of everything scheduled for the day across all pets.
+
+Main objects in the system:
+
+Pet
+- attributes: name, species, age
+- methods: get_info()
+
+Owner
+- attributes: name, pets (list)
+- methods: add_pet()
+
+Task
+- attributes: title, duration_minutes, priority (low/medium/high)
+- methods: is_high_priority()
+
+Scheduler
+- attributes: owner, tasks (list), available_minutes
+- methods: add_task(), generate_schedule(), explain_plan()
+
+ScheduledPlan
+- attributes: tasks in order, total time, date
+- methods: display()
 
 **b. Design changes**
 
