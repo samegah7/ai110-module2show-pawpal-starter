@@ -46,6 +46,31 @@ The scheduler has been extended beyond basic greedy time-filling with four algor
 
 ---
 
+## Testing PawPal+
+
+### Run the test suite
+
+```bash
+python -m pytest tests/test_pawpal.py -v
+```
+
+### What the tests cover
+
+| Area | Description |
+|---|---|
+| **Sorting correctness** | Verifies tasks are ordered high → medium → low priority, and that `sort_by_time()` returns tasks in chronological HH:MM order with untimed tasks placed last. |
+| **Recurrence logic** | Confirms that completing a `daily` task creates a new task due tomorrow, a `weekly` task creates one due in 7 days, an `as needed` task produces no recurrence, and tasks without a pet assigned do not crash. |
+| **Conflict detection** | Checks that two pending tasks at the same start time trigger a warning, that completed tasks are excluded from conflict checks, and that tasks with no time set never produce false positives. |
+| **Edge cases** | A pet with zero tasks does not crash the scheduler; a single task whose duration exceeds the available time budget is excluded from the generated plan. |
+
+### Confidence level
+
+★★★★☆ (4 / 5)
+
+All 15 tests pass. Core scheduling, recurrence, and conflict-detection paths are covered with both happy-path and edge-case scenarios. The one gap is overlapping-duration detection — `warn_time_conflicts` currently catches only exact same-start-time clashes, not tasks whose time windows overlap — which is noted in `reflection.md`.
+
+---
+
 ### Suggested workflow
 
 1. Read the scenario carefully and identify requirements and edge cases.
